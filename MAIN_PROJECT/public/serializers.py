@@ -3,7 +3,7 @@ from dataclasses import field
 from rest_framework import serializers
 
 
-from .models import announcements, assignments, class_tests, helpwewant
+from .models import announcements, assignments, class_tests, helpwewant, routineTasks
 
 
 class announcementsSerializer(serializers.ModelSerializer):
@@ -26,6 +26,10 @@ class helpwewantSerializer(serializers.ModelSerializer):
         model = helpwewant
         fields = '__all__'
 
+class routineTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = routineTasks
+        fields = '__all__'
 
 # class DemoSerializer(serializers.ModelSerializer):
 #     class Meta:
