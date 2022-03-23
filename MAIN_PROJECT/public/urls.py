@@ -8,6 +8,13 @@ urlpatterns = [
     path('assignment-list/', views.assignmentList, name = "assignmentList"),
     path('class_test-list/', views.classtestsList, name = "classtestsList"),
     path('help-list/', views.helpList, name = "helpList"),
+    path('satTask-list/', views.satTaskList, name = "satTaskList"),
+    path('sunTask-list/', views.sunTaskList, name = "sunTaskList"),
+    path('monTask-list/', views.monTaskList, name = "monTaskList"),
+    path('tueTask-list/', views.tueTaskList, name = "tueTaskList"),
+    path('wedTask-list/', views.wedTaskList, name = "wedTaskList"),
+    path('thursTask-list/', views.thursTaskList, name = "thursTaskList"),
+    path('friTask-list/', views.friTaskList, name = "friTaskList"),
 
     path('counter/', views.counterAPI, name = "counterAPI"),
 
@@ -26,6 +33,8 @@ urlpatterns = [
     path('assignment-delete/<str:pk>/', views.assignmentDelete, name = "assignmentDelete"),
     path('class_test-delete/<str:pk>/', views.classtestDelete, name = "classtestDelete"),
     path('help-delete/<str:pk>/', views.helpDelete, name = "helpDelete"),
+
+   
 
  
 

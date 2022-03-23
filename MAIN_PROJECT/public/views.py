@@ -5,10 +5,10 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .serializers import announcementsSerializer, assignmentsSerializer, classtestsSerializer, helpwewantSerializer
+from .serializers import announcementsSerializer, assignmentsSerializer, classtestsSerializer, helpwewantSerializer, routineTaskSerializer
 
 
-from .models import announcements, class_tests, assignments, helpwewant
+from .models import announcements, class_tests, assignments, helpwewant, routineTasks
 
 
 
@@ -86,14 +86,14 @@ def announcementList(request):
 @api_view(['GET'])
 def assignmentList(request):
 
-    assignment = assignments.objects.all()
+    assignment = assignments.objects.all().order_by('due').filter(due__gte=datetime.date.today())
     serializer = assignmentsSerializer(assignment, many = True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def classtestsList(request):
 
-    cts = class_tests.objects.all()
+    cts = class_tests.objects.all().order_by('occurring').filter(occurring__gte=datetime.date.today())
     serializer = classtestsSerializer(cts, many = True)
     return Response(serializer.data)
 
@@ -104,6 +104,58 @@ def helpList(request):
     helps = helpwewant.objects.all()
     serializer =  helpwewantSerializer(helps, many = True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def satTaskList(request):
+    tasks = routineTasks.objects.filter(day__startswith="sat").order_by('time')
+
+    serializer =  routineTaskSerializer(tasks, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def sunTaskList(request):
+    tasks = routineTasks.objects.filter(day__startswith="sun").order_by('time')
+
+    serializer =  routineTaskSerializer(tasks, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def monTaskList(request):
+    tasks = routineTasks.objects.filter(day__startswith="mon").order_by('time')
+
+    serializer =  routineTaskSerializer(tasks, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def tueTaskList(request):
+    tasks = routineTasks.objects.filter(day__startswith="tue").order_by('time')
+
+    serializer =  routineTaskSerializer(tasks, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def wedTaskList(request):
+    tasks = routineTasks.objects.filter(day__startswith="wed").order_by('time')
+
+    serializer =  routineTaskSerializer(tasks, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def thursTaskList(request):
+    tasks = routineTasks.objects.filter(day__startswith="thurs").order_by('time')
+
+    serializer =  routineTaskSerializer(tasks, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def friTaskList(request):
+    tasks = routineTasks.objects.filter(day__startswith="fri").order_by('time')
+
+    serializer =  routineTaskSerializer(tasks, many = True)
+    return Response(serializer.data)
+
+
 
 # POST # 
 

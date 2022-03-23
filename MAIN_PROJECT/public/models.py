@@ -1,4 +1,5 @@
 from pyexpat import model
+from statistics import mode
 from django.utils.timezone import now
 from django.db import models
 
@@ -8,7 +9,7 @@ from django.db import models
 # Announcements from CRs and Admins
 class announcements(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField(max_length=500, blank=True) 
+    description = models.TextField(blank=True) 
     created_at = models.DateField(default=now)
 
     def __str__(self) -> str:
@@ -34,15 +35,18 @@ class class_tests(models.Model):
     class CtType(models.enums.Choices):
         MCQ = "mcq"
         WRITTEN = "written"
-        #VIVA
+        VIVA = "viva"
+    
     # subject/course the class test belongs to
     subject = models.CharField(max_length=200)
     about = models.TextField()
     # time when the class test will be held
     occurring = models.DateField()
+    time = models.TimeField()
     # class text type field (can be either mcq or written)
-    type = models.CharField(max_length=10, choices=CtType.choices, default=CtType.MCQ)
+    type = models.CharField(max_length=10, choices=CtType.choices, blank=True) 
     created_at = models.DateField(default=now)
+    sec = models.TextField(max_length=10)
     #section
     def __str__(self) -> str:
         return self.about
@@ -58,12 +62,26 @@ class helpwewant(models.Model):
     def __str__(self) -> str:
         return self.question
 
-    
 
+######## ROUTINE ######################################################################
 
+class routineTasks(models.Model):
 
-# class Demo(models.Model):
-#     name = models.CharField(max_length=100)
+    class DayType(models.enums.Choices):
+        SAT = "saturday"
+        SUN = "sunday"
+        MON = "monday"
+        TUE = "tuesday"
+        WED = "wednesday"
+        THUR = "thursday"
+        FRI = "friday"
 
-#     def __str__(self) -> str:
-#         return self.name 
+    day = models.CharField(max_length=10, choices=DayType.choices) 
+    course = models.TextField(max_length=10)
+    teacher = models.TextField(max_length=20)
+    time = models.TimeField()
+    roomNo = models.TextField(max_length=100, blank=True)
+    linkToClass = models.URLField(blank=True)
+
+    def __str__(self) -> str:
+        return self.course
