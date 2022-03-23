@@ -21,6 +21,7 @@ class announcements(models.Model):
 class assignments(models.Model):
     # subject/course the assignment belongs to
     subject = models.CharField(max_length=200)
+    teacher = models.CharField(max_length=100)
     title = models.CharField(max_length=255)
     # time before the assignment should/must be submitted
     due = models.DateField()
@@ -39,6 +40,7 @@ class class_tests(models.Model):
     
     # subject/course the class test belongs to
     subject = models.CharField(max_length=200)
+    teacher = models.CharField(max_length=100)
     about = models.TextField()
     # time when the class test will be held
     occurring = models.DateField()
